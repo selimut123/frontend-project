@@ -1,0 +1,28 @@
+.headerTitles{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Lora', serif;
+    color: black;
+}
+
+.headerTitleSm{
+    position: absolute;
+    margin-top: 2%;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.headerTitleLg{
+    position: absolute;
+    margin-top: 4%;
+    font-size: 120px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.headerImg{
+    width: 100%;
+    height: 750px;
+    margin-top: 80px;
+    object-fit: cover;
+}

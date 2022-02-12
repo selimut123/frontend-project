@@ -1,0 +1,23 @@
+.LatestPost{
+    margin: 0 4rem;
+    padding: 10px 0;
+    align-self: center;
+}
+
+.AllBlogs{
+    display: flex;
+    flex-direction: row;
+}
+
+.blogPost{
+    display: flex;
+    flex-direction: row;
+}
+
+.BlogList{
+    flex: 9;
+    width: 100%;
+    max-height: 800px;
+    display: flex;
+    flex-wrap: wrap;
+}
