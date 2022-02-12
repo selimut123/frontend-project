@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -13,32 +13,62 @@ import Register from "./pages/Register/Register";
 import MainNavigation from "./components/navigations/MainNavigation/MainNavigation";
 import "./App.css";
 import { Redirect } from "react-router-dom";
+import { AuthContext } from "./context/auth-context";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const login = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+  }, []);
+
+  let routes;
+
+  if (isLoggedIn) {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <BlogPage />
+        </Route>
+        <Route path="/user/blog" exact>
+          <MyBlog />
+        </Route>
+        <Route path="/write" exact>
+          <WriteBlog />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <BlogPage />
+        </Route>
+        <Route path="/user/login" exact>
+          <Login />
+        </Route>
+        <Route path="/user/register" exact>
+          <Register />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
+
   return (
-    <Router>
-      <MainNavigation />
-      <main>
-        <Switch>
-          <Route path="/" exact>
-            <BlogPage />
-          </Route>
-          <Route path="/user/blog" exact>
-            <MyBlog />
-          </Route>
-          <Route path="/write" exact>
-            <WriteBlog />
-          </Route>
-          <Route path="/user/login" exact>
-            <Login />
-          </Route>
-          <Route path="/user/register" exact>
-            <Register />
-          </Route>
-          <Redirect to="/" />
-        </Switch>
-      </main>
-    </Router>
+    <AuthContext.Provider
+      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+    >
+      <Router>
+        <MainNavigation />
+        <main>{routes}</main>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 
