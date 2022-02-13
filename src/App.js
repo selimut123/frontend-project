@@ -10,7 +10,9 @@ import MyBlog from "./pages/MyBlog/MyBlog";
 import WriteBlog from "./pages/WriteBlog/WriteBlog";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
+import SinglePost from "./pages/SinglePost/SinglePost";
 import MainNavigation from "./components/navigations/MainNavigation/MainNavigation";
+import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "./context/auth-context";
@@ -34,6 +36,9 @@ function App() {
         <Route path="/" exact>
           <BlogPage />
         </Route>
+        <Route path="/singleblog/:blogId" exact>
+          <SinglePost />
+        </Route>
         <Route path="/user/blog" exact>
           <MyBlog />
         </Route>
@@ -48,6 +53,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <BlogPage />
+        </Route>
+        <Route path="/singleblog/:blogId" exact>
+          <SinglePost />
         </Route>
         <Route path="/user/login" exact>
           <Login />
@@ -65,6 +73,7 @@ function App() {
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
       <Router>
+      <ScrollToTop/>
         <MainNavigation />
         <main>{routes}</main>
       </Router>
