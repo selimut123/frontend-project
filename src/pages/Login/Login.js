@@ -50,6 +50,7 @@ function Login() {
             <Input
               id="email"
               type="text"
+              element="input"
               label="Email"
               validators={[VALIDATOR_EMAIL()]}
               errorText="Please enter a valid email."
@@ -58,6 +59,7 @@ function Login() {
             <Input
               id="password"
               type="password"
+              element="input"
               label="Password"
               validators={[VALIDATOR_MINLENGTH(6)]}
               errorText="Please enter a valid password."

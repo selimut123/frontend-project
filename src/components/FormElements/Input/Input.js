@@ -53,13 +53,8 @@ function Input(props) {
     });
   }
 
-  return (
-    <div
-      className={`form-control ${
-        !inputState.isValid && inputState.isTouched && "form-control--invalid"
-      }`}
-    >
-      <label htmlFor={props.id}>{props.label}</label>
+  const element =
+    props.element === "input" ? (
       <input
         id={props.id}
         type={props.type}
@@ -68,6 +63,25 @@ function Input(props) {
         onBlur={touchHandler}
         value={inputState.value}
       />
+    ) : (
+      <textarea
+        id={props.id}
+        rows={props.rows || 3}
+        placeholder={props.placeholder}
+        onChange={changeHandler}
+        onBlur={touchHandler}
+        value={inputState.value}
+      />
+    );
+
+  return (
+    <div
+      className={`form-control ${
+        !inputState.isValid && inputState.isTouched && "form-control--invalid"
+      }`}
+    >
+      <label htmlFor={props.id}>{props.label}</label>
+      {element}
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </div>
   );
