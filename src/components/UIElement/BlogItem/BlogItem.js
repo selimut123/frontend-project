@@ -8,7 +8,6 @@ function BlogItem(props) {
     <div className="post">
       <Link
         to={`/singleBlog/${props.id}`}
-        exact
         style={{ textDecoration: "none" }}
       >
         <div className="postImg">

@@ -53,6 +53,7 @@ function Register() {
             <Input
               id="FirstName"
               type="text"
+              element="input"
               label="First Name"
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter your first name."
@@ -61,6 +62,7 @@ function Register() {
             <Input
               id="LastName"
               type="text"
+              element="input"
               label="Last Name"
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter your last Name."
@@ -69,6 +71,7 @@ function Register() {
             <Input
               id="email"
               type="text"
+              element="input"
               label="Email"
               validators={[VALIDATOR_EMAIL()]}
               errorText="Please enter a valid email."
@@ -77,6 +80,7 @@ function Register() {
             <Input
               id="password"
               type="password"
+              element="input"
               label="Password"
               validators={[VALIDATOR_MIN(6)]}
               errorText="Please enter a password (min 6 characters)."
