@@ -7,7 +7,7 @@ function BlogItem(props) {
   return (
     <div className="post">
       <Link
-        to={`/singleBlog/${props.id}`}
+        to={`/blogPost/${props.id}`}
         style={{ textDecoration: "none" }}
       >
         <div className="postImg">

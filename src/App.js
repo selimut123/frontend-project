@@ -10,7 +10,7 @@ import MyBlog from "./pages/MyBlog/MyBlog";
 import WriteBlog from "./pages/WriteBlog/WriteBlog";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import SinglePost from "./pages/SinglePost/SinglePost";
+import Post from "./pages/Post/Post";
 import MainNavigation from "./components/navigations/MainNavigation/MainNavigation";
 import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
@@ -36,10 +36,10 @@ function App() {
         <Route path="/" exact>
           <BlogPage />
         </Route>
-        <Route path="/singleblog/:blogId" exact>
-          <SinglePost />
+        <Route path="/blogPost/:blogId" exact>
+          <Post />
         </Route>
-        <Route path="/user/blog" exact>
+        <Route path="/user/blog/:userId" exact>
           <MyBlog />
         </Route>
         <Route path="/write" exact>
@@ -54,8 +54,8 @@ function App() {
         <Route path="/" exact>
           <BlogPage />
         </Route>
-        <Route path="/singleblog/:blogId" exact>
-          <SinglePost />
+        <Route path="/blogPost/:blogId" exact>
+          <Post />
         </Route>
         <Route path="/user/login" exact>
           <Login />

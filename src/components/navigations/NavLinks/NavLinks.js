@@ -15,7 +15,7 @@ function NavLinks(props){
         </li>
         {auth.isLoggedIn && (
           <li>
-            <NavLink to="/user/blog" exact>
+            <NavLink to="/user/blog/u1" exact>
               MY BLOG
             </NavLink>
           </li>

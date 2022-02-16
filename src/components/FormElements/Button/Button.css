@@ -35,13 +35,13 @@
 
 .button--inverse {
   background: transparent;
-  color: #ff0055;
+  color: black;
 }
 
 .button--inverse:hover,
 .button--inverse:active {
-  color: white;
-  background: #ff0055;
+  color: black;
+  background: #85ff6c;
 }
 
 .button--danger {

@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
 import "./SideBar.css";
 
 function SideBar(props) {
@@ -27,18 +28,22 @@ function SideBar(props) {
         <span className="sidebarTitleBlog">MORE BLOG</span>
         <ul>
           {props.items.map((blog) => (
-            <div key={blog.id} className="blogContainer">
-              <span className="blogItem">
-                {blog.title}
-              </span>
-              <div className="genreContainer">
-                {blog.genre.map((genre, index) => (
-                  <span key={index} className="blogItemGenre">
-                    {genre}
-                  </span>
-                ))}
+            <Link
+              to={`/blogPost/${blog.id}`}
+              style={{ textDecoration: "none" }}
+              key={blog.id}
+            >
+              <div className="blogContainer">
+                <span className="blogItem">{blog.title}</span>
+                <div className="genreContainer">
+                  {blog.genre.map((genre, index) => (
+                    <span key={index} className="blogItemGenre">
+                      {genre}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </ul>
       </div>

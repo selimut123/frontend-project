@@ -1,0 +1,15 @@
+.MyBlog{
+    margin: 0 2rem;
+    padding: 10px 0;
+    /* border-width: 1;
+    border-style: dashed; */
+    display: flex;
+    align-self: center;
+}
+
+.MyBlogList{
+    width: 100%;
+    max-height: 800px;
+    display: flex;
+    flex-wrap: wrap;
+}
