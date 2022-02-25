@@ -93,3 +93,11 @@
     display: flex;
     flex-direction: row;
 }
+
+.postDate{
+    font-family: "Lora", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #999;
+    margin-top: 15px;
+}

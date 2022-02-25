@@ -1,19 +1,21 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import Input from "../../components/FormElements/Input/Input";
 import Button from "../../components/FormElements/Button/Button";
 import Card from "../../components/UIElement/Card/Card";
-import {
-  VALIDATOR_EMAIL,
-  VALIDATOR_MINLENGTH,
-} from "../../util/validators";
+import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from "../../util/validators";
 import { useForm } from "../../hooks/form-hook";
 import { AuthContext } from "../../context/auth-context";
+import { useHttpClient } from "../../hooks/http-hook";
 import "./Login.css";
+import ErrorModal from "../../components/ErrorModal";
+import LoadingSpinner from "../../components/UIElement/LoadingSpinner/LoadingSpinner";
 
 function Login() {
   const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
   const [formState, inputHandler] = useForm(
     {
       email: {
@@ -34,16 +36,30 @@ function Login() {
     history.push("/user/register");
   }
 
-  function SubmitHandler(event){
+  async function SubmitHandler(event) {
     event.preventDefault();
-    console.log(formState);
-    auth.login();
+    try {
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/auth/login",
+        "POST",
+        JSON.stringify({
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      auth.login(responseData.userId, responseData.token);
+    } catch (err) {}
   }
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <div className="loginPage">
         <Card className="loginCard">
+          {isLoading && <LoadingSpinner asOverlay/>}
           <h2>Login</h2>
           <hr />
           <form onSubmit={SubmitHandler}>

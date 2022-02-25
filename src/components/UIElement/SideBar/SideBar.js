@@ -27,24 +27,35 @@ function SideBar(props) {
       <div className="sidebarItem">
         <span className="sidebarTitleBlog">MORE BLOG</span>
         <ul>
-          {props.items.map((blog) => (
-            <Link
-              to={`/blogPost/${blog.id}`}
-              style={{ textDecoration: "none" }}
-              key={blog.id}
-            >
-              <div className="blogContainer">
-                <span className="blogItem">{blog.title}</span>
-                <div className="genreContainer">
-                  {blog.genre.map((genre, index) => (
-                    <span key={index} className="blogItemGenre">
-                      {genre}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Link>
-          ))}
+          {props.items.length === 0 && (
+            <div className="place-list center">
+              <h2>NO MORE BLOGS. ADD ONE!</h2>
+            </div>
+          )}
+          {props.items.length !== 0 &&
+            props.items.map((blog) => {
+              const date = new Date(blog.createdAt);
+              const displayDate =
+                date.getDate() +
+                "/" +
+                date.getMonth() +
+                "/" +
+                date.getFullYear();
+              return (
+                <Link
+                  to={`/blogPost/${blog.id}`}
+                  style={{ textDecoration: "none" }}
+                  key={blog.id}
+                >
+                  <div className="blogContainer">
+                    <span className="blogItem">{blog.title}</span>
+                    <div className="genreContainer">
+                      <span className="postDate">{displayDate}</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
         </ul>
       </div>
     </div>

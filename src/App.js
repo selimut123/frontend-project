@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -16,21 +16,14 @@ import ScrollToTop from "./components/ScrollToTop";
 import "./App.css";
 import { Redirect } from "react-router-dom";
 import { AuthContext } from "./context/auth-context";
+import { useAuth } from "./hooks/auth-hook";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const login = useCallback(() => {
-    setIsLoggedIn(true);
-  }, []);
-
-  const logout = useCallback(() => {
-    setIsLoggedIn(false);
-  }, []);
+  const {token, login, logout, userId} = useAuth();
 
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
         <Route path="/" exact>
@@ -70,10 +63,16 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}
     >
       <Router>
-      <ScrollToTop/>
+        <ScrollToTop />
         <MainNavigation />
         <main>{routes}</main>
       </Router>

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../context/auth-context";
 import './NavLinks.css';
 
-function NavLinks(props){
+function NavLinks(){
   const auth = useContext(AuthContext);
     return (
       <ul className="nav-links">
@@ -15,7 +15,7 @@ function NavLinks(props){
         </li>
         {auth.isLoggedIn && (
           <li>
-            <NavLink to="/user/blog/u1" exact>
+            <NavLink to={`/user/blog/${auth.userId}`} exact>
               MY BLOG
             </NavLink>
           </li>

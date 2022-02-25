@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import Card from "../../components/UIElement/Card/Card";
 import Input from "../../components/FormElements/Input/Input";
 import Button from "../../components/FormElements/Button/Button";
+import { AuthContext } from "../../context/auth-context";
+import { useHttpClient } from "../../hooks/http-hook";
 import { useForm } from "../../hooks/form-hook";
 import "./Register.css";
-import { VALIDATOR_EMAIL, VALIDATOR_MIN, VALIDATOR_REQUIRE } from "../../util/validators";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from "../../util/validators";
+import ErrorModal from "../../components/ErrorModal";
+import LoadingSpinner from "../../components/UIElement/LoadingSpinner/LoadingSpinner";
 
 function Register() {
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   //initialize the value and use custom hooks
   const [formState, inputHandler] = useForm(
@@ -38,15 +48,33 @@ function Register() {
     history.push("/user/login");
   }
 
-  function SubmitHandler(event) {
+  async function SubmitHandler(event) {
     event.preventDefault();
     console.log(formState);
+    try{
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/auth/signup",
+        "POST",
+        JSON.stringify({
+          firstName: formState.inputs.FirstName.value,
+          lastName: formState.inputs.LastName.value,
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      auth.login(responseData.userId, responseData.token);
+    }catch(err){}
   }
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <div className="registerPage">
         <Card className="registerCard">
+          {isLoading && <LoadingSpinner asOverlay/>}
           <h2>Register</h2>
           <hr />
           <form onSubmit={SubmitHandler}>
@@ -82,7 +110,7 @@ function Register() {
               type="password"
               element="input"
               label="Password"
-              validators={[VALIDATOR_MIN(6)]}
+              validators={[VALIDATOR_MINLENGTH(6)]}
               errorText="Please enter a password (min 6 characters)."
               onInput={inputHandler}
             />
